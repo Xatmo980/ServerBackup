@@ -40,7 +40,7 @@ Backup.All = function()
                    local PlayerData = jsonInterface.load("/player/" .. fileName .. ".json")
                    jsonInterface.save(players .. fileName .. ".json", PlayerData)
                end
-         tes3mp.LogMessage(3, "Players Backed Up!!")
+         tes3mp.LogMessage(3, "(" .. #Files .. ")" .. "Players Backed Up!!")
       end
       if BackupWorld == true then
          local world = "/custom/backups/world/"
