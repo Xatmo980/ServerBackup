@@ -1,5 +1,5 @@
 local Backup = {}
-local ResetTime = 86400     -- reset every 86400 seconds (24 hours) of real time.
+local ResetTime = 86400     -- Reset every 86400 seconds (24 hours) of real time.
 local SeperateFolder = true -- [Untested on Linux]Put each day in seperate dated folder instead of overwite(Takes up more space)
 local BackupPlayers = true  -- "true" to backup all players .json files
 local BackupWorld = true    -- "true" to backup world.json
@@ -42,7 +42,11 @@ Backup.All = function()
          local Files = getPlayers(directory)
          local players = "/custom/backups/players/"
          if SeperateFolder == true then
-                  os.execute("mkdir " .. tes3mp.GetDataPath() .. "\\custom\\backups\\players\\" .. Backup.Date())
+                  if tes3mp.GetOperatingSystemType() == "Windows" then
+                     os.execute("mkdir " .. tes3mp.GetDataPath() .. "\\custom\\backups\\players\\" .. Backup.Date())
+                  else
+                     os.execute("mkdir " .. tes3mp.GetDataPath() .. "/custom/backups/players/" .. Backup.Date())
+                  end
          end
                for _,fileName in pairs(Files) do
                    local NoFileExtension = fileName:split(".")
@@ -61,7 +65,11 @@ Backup.All = function()
          local world = "/custom/backups/world/"
          local WorldData = jsonInterface.load("/world/world.json")
                if SeperateFolder == true then
-                  os.execute("mkdir " .. tes3mp.GetDataPath() .. "\\custom\\backups\\world\\" .. Backup.Date())
+                  if tes3mp.GetOperatingSystemType() == "Windows" then
+                     os.execute("mkdir " .. tes3mp.GetDataPath() .. "\\custom\\backups\\world\\" .. Backup.Date())
+                  else
+                     os.execute("mkdir " .. tes3mp.GetDataPath() .. "/custom/backups/world/" .. Backup.Date())
+                  end
                   jsonInterface.save(world .. Backup.Date() .. "/" .. "world.json", WorldData)
                else
                   jsonInterface.save(world .. "world.json", WorldData)
