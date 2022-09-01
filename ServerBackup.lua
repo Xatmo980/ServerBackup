@@ -1,5 +1,5 @@
 local Backup = {}
-local ResetTime = 86400     -- Exterior cells reset every 86400 seconds (24 hours) of real time.
+local ResetTime = 86400     -- reset every 86400 seconds (24 hours) of real time.
 local SeperateFolder = true -- [Untested on Linux]Put each day in seperate dated folder instead of overwite(Takes up more space)
 local BackupPlayers = true  -- "true" to backup all players .json files
 local BackupWorld = true    -- "true" to backup world.json
