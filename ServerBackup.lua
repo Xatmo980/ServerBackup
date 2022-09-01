@@ -36,22 +36,27 @@ Backup.Date = function()
   return Date
 end
 
+Backup.CreateDir = function()
+      if tes3mp.GetOperatingSystemType() == "Windows" then
+         os.execute("mkdir " .. tes3mp.GetDataPath() .. "\\custom\\backups\\players\\" .. Backup.Date())
+         os.execute("mkdir " .. tes3mp.GetDataPath() .. "\\custom\\backups\\world\\" .. Backup.Date())
+      else
+         os.execute("mkdir " .. tes3mp.GetDataPath() .. "/custom/backups/players/" .. Backup.Date())
+         os.execute("mkdir " .. tes3mp.GetDataPath() .. "/custom/backups/world/" .. Backup.Date())
+      end
+end
+
 Backup.All = function()
+      if SeperateFolder == true then
+          Backup.CreateDir()
+      end
       if BackupPlayers == true then
          local directory = tes3mp.GetDataPath() .. "/player/"
          local Files = getPlayers(directory)
          local players = "/custom/backups/players/"
-         if SeperateFolder == true then
-                  if tes3mp.GetOperatingSystemType() == "Windows" then
-                     os.execute("mkdir " .. tes3mp.GetDataPath() .. "\\custom\\backups\\players\\" .. Backup.Date())
-                  else
-                     os.execute("mkdir " .. tes3mp.GetDataPath() .. "/custom/backups/players/" .. Backup.Date())
-                  end
-         end
                for _,fileName in pairs(Files) do
                    local NoFileExtension = fileName:split(".")
                    local fileName = NoFileExtension[1]
-                   
                    local PlayerData = jsonInterface.load("/player/" .. fileName .. ".json")
                    if SeperateFolder == true then
                       jsonInterface.save(players .. Backup.Date() .. "/" .. fileName .. ".json", PlayerData)
@@ -65,11 +70,6 @@ Backup.All = function()
          local world = "/custom/backups/world/"
          local WorldData = jsonInterface.load("/world/world.json")
                if SeperateFolder == true then
-                  if tes3mp.GetOperatingSystemType() == "Windows" then
-                     os.execute("mkdir " .. tes3mp.GetDataPath() .. "\\custom\\backups\\world\\" .. Backup.Date())
-                  else
-                     os.execute("mkdir " .. tes3mp.GetDataPath() .. "/custom/backups/world/" .. Backup.Date())
-                  end
                   jsonInterface.save(world .. Backup.Date() .. "/" .. "world.json", WorldData)
                else
                   jsonInterface.save(world .. "world.json", WorldData)
