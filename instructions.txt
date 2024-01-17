@@ -1,3 +1,3 @@
 1. (ServerBackup.lua) goes into (server/scripts/custom)
 2. add Backup = require("custom.ServerBackup") to your (customScripts.lua) located in (server/scripts)
-3. add (backups) folder in location (data/custom) and create the folders players and world inside of backups
+3. add (backups) folder in location (data/custom) and create the folders players, world and cells inside of backups
