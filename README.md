@@ -1,2 +1,2 @@
 # ServerBackup
-Auto Backups for World, Players and cells
+Auto Backups for World, Players and Cells
